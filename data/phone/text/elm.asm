@@ -112,21 +112,43 @@ ElmPhoneDiscoveredPokerusText:
 	line "virus, so it's"
 	cont "called #RUS."
 
-	para "It multiplies fast"
-	line "and infects other"
+	para "It has a chance to"
+	line "infect your party"
 
-	para "#MON too. But"
-	line "that's all."
+	para "members after each"
+	line "battle."
 
-	para "It doesn't seem to"
-	line "do anything, and"
+	para "It doubles the"
+	line "EFFORT VALUES"
 
-	para "it goes away over"
-	line "time."
+	para "gained in battle"
+	line "and nothing else."
 
-	para "I guess it's"
-	line "nothing to worry"
-	cont "about. Bye!"
+	para "so it's nothing to"
+	line "worry about and" 
+	cont "quite beneficial!"
+	
+	para "It goes away in"
+	line "1 to 4 days but if"
+	
+	para "you store the"
+	line "infected #MON"
+	
+	para "overnight in your"
+	line "PC, it'll persist."
+
+	para "I suggest you"
+	line "always keep an"
+
+	para "infected #MON"
+	line "in your PC."
+
+	para "Lasty, a healed"
+	line "#MON can never"
+	cont "get back #RUS."
+
+	para "I'll call you if"
+	line "I learn more. Bye!"
 	done
 
 ElmPhoneDisasterText:
