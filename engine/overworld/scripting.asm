@@ -734,7 +734,7 @@ Script_winlosstext:
 	ld [hli], a
 	call GetScriptByte
 	ld [hli], a
-	ld hl, wLossTextPointer
+	ld hl, GetFinalPkmnTextPointer ; was wLossTextPointer previously but replaced throughtout repo
 	call GetScriptByte
 	ld [hli], a
 	call GetScriptByte

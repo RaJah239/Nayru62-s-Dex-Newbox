@@ -204,21 +204,11 @@ FacingPlayerDistance::
 	ret
 
 PrintWinLossText::
-	ld a, [wBattleType]
-	cp BATTLETYPE_CANLOSE
-	; code was probably dummied out here
-	jr .canlose
-
-; unused
-	ld hl, wWinTextPointer
-	jr .ok
-
-.canlose
 	ld a, [wBattleResult]
 	ld hl, wWinTextPointer
 	and $f ; WIN?
 	jr z, .ok
-	ld hl, wLossTextPointer
+	ld hl, GetFinalPkmnTextPointer ; was wLossTextPointer previously but replaced throughtout repo
 
 .ok
 	ld a, [hli]

@@ -117,7 +117,7 @@ CherrygroveRivalSceneNorth:
 	iftrue .Totodile
 	checkevent EVENT_GOT_CHIKORITA_FROM_ELM
 	iftrue .Chikorita
-	winlosstext RivalCherrygroveWinText, RivalCherrygroveLossText
+	winlosstext RivalCherrygroveWinText, 0
 	setlasttalked CHERRYGROVECITY_RIVAL
 	loadtrainer RIVAL1, RIVAL1_1_TOTODILE
 	loadvar VAR_BATTLETYPE, BATTLETYPE_CANLOSE
@@ -128,7 +128,7 @@ CherrygroveRivalSceneNorth:
 	sjump .AfterYourDefeat
 
 .Totodile:
-	winlosstext RivalCherrygroveWinText, RivalCherrygroveLossText
+	winlosstext RivalCherrygroveWinText, 0
 	setlasttalked CHERRYGROVECITY_RIVAL
 	loadtrainer RIVAL1, RIVAL1_1_CHIKORITA
 	loadvar VAR_BATTLETYPE, BATTLETYPE_CANLOSE
@@ -139,7 +139,7 @@ CherrygroveRivalSceneNorth:
 	sjump .AfterYourDefeat
 
 .Chikorita:
-	winlosstext RivalCherrygroveWinText, RivalCherrygroveLossText
+	winlosstext RivalCherrygroveWinText, 0
 	setlasttalked CHERRYGROVECITY_RIVAL
 	loadtrainer RIVAL1, RIVAL1_1_CYNDAQUIL
 	loadvar VAR_BATTLETYPE, BATTLETYPE_CANLOSE
@@ -460,11 +460,6 @@ CherrygroveRivalText_YouLost:
 	line "the world's great-"
 	cont "est #MON"
 	cont "trainer."
-	done
-
-RivalCherrygroveLossText:
-	text "Humph. That was a"
-	line "waste of time."
 	done
 
 CherrygroveRivalText_YouWon:

@@ -2179,7 +2179,7 @@ wTempTrainerClass:: db
 wTempTrainerID:: db
 wSeenTextPointer:: dw
 wWinTextPointer:: dw
-wLossTextPointer:: dw
+GetFinalPkmnTextPointer:: dw ; was wLossTextPointer previously but replaced throughtout repo
 wScriptAfterPointer:: dw
 wRunningTrainerBattleScript:: db
 wTempTrainerEnd::

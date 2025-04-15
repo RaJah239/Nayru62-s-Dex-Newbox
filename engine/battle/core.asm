@@ -2626,6 +2626,17 @@ IsGymLeaderCommon:
 
 INCLUDE "data/trainers/leaders.asm"
 
+IsBossTrainer:
+	ld hl, BossTrainers
+	push de
+	ld a, [wOtherTrainerClass]
+	ld de, 1
+	call IsInArray
+	pop de
+	ret
+
+INCLUDE "data/trainers/boss_trainers.asm"
+
 HandlePlayerMonFaint:
 	call FaintYourPokemon
 	ld hl, wEnemyMonHP
@@ -2943,22 +2954,9 @@ LostBattle:
 	jr nz, .battle_tower
 
 	ld a, [wBattleType]
-	cp BATTLETYPE_CANLOSE
-	jr nz, .not_canlose
+	dec a ; wild?
+	jr z, .no_loss_text
 
-; Remove the enemy from the screen.
-	hlcoord 0, 0
-	lb bc, 8, 21
-	call ClearBox
-	call BattleWinSlideInEnemyTrainerFrontpic
-
-	ld c, 40
-	call DelayFrames
-
-	ld a, [wDebugFlags]
-	bit DEBUG_BATTLE_F, a
-	jr nz, .skip_win_loss_text
-	call PrintWinLossText
 .skip_win_loss_text
 	ret
 
@@ -2980,7 +2978,7 @@ LostBattle:
 	call ClearBGPalettes
 	ret
 
-.not_canlose
+.no_loss_text
 	ld a, [wLinkMode]
 	and a
 	jr nz, .LostLinkBattle
@@ -3168,7 +3166,7 @@ EnemySwitch:
 	call ShowBattleTextEnemySentOut
 	call ShowSetEnemyMonAndSendOutAnimation
 	pop af
-	ret c
+	jp c, FinalPkmnAnimation
 	; If we're here, then we're switching too
 	xor a
 	ld [wBattleParticipantsNotFainted], a
@@ -3177,7 +3175,8 @@ EnemySwitch:
 	inc a
 	ld [wEnemyIsSwitching], a
 	call LoadTilemapToTempTilemap
-	jp PlayerSwitch
+	call PlayerSwitch
+	jp FinalPkmnAnimation
 
 EnemySwitch_SetMode:
 	call ResetEnemyBattleVars
@@ -3191,7 +3190,8 @@ EnemySwitch_SetMode:
 	ld [wEnemyIsSwitching], a
 	call ClearEnemyMonBox
 	call ShowBattleTextEnemySentOut
-	jp ShowSetEnemyMonAndSendOutAnimation
+	call ShowSetEnemyMonAndSendOutAnimation
+	jp FinalPkmnAnimation
 
 CheckWhetherSwitchmonIsPredetermined:
 ; returns the enemy switchmon index in b, or
@@ -3482,6 +3482,84 @@ LoadEnemyMonToSwitchTo:
 	ld [wEnemyHPAtTimeOfPlayerSwitch + 1], a
 	ret
 
+FinalPkmnAnimation:
+	; if this is not a link battle...
+	ld a, [wLinkMode]
+	and a
+	ret nz
+
+	; ...and this trainer has final text...
+	ld hl, GetFinalPkmnTextPointer ; was wLossTextPointer previously but replaced throughtout repo
+	ld a, [hli]
+	ld h, [hl]
+	and h
+	ret z
+
+	; ...and this is their last Pokémon...
+	farcall FindAliveEnemyMons
+	ret nz
+
+	; ...then hide the Pokémon...
+	call EmptyBattleTextbox
+	ld c, 20
+	call DelayFrames
+	hlcoord 18, 0
+	ld a, 8
+	call SlideBattlePicOut
+
+	; ...play the final Pokémon music...
+	; first option
+	; if either a Johto or Kanto Leader, the Kanto Leader theme plays
+	call IsGymLeader
+	jr nc, .no_music1
+	push de
+	ld e, MUSIC_NONE ; Stops music to switch to a new track
+	call PlayMusic
+	call DelayFrame
+	ld e, MUSIC_KANTO_GYM_LEADER_BATTLE ; This is the alternate music track that plays
+	call PlayMusic
+	pop de
+.no_music1
+
+	; second option (more options can be added)
+	; new array made for boss trainers - placeholder for future
+	call IsBossTrainer
+	jr nc, .no_music2
+	push de
+	ld e, MUSIC_NONE ; Stops music to switch to a new track
+	call PlayMusic
+	call DelayFrame
+	ld e, MUSIC_ROCKET_BATTLE ; This is the alternate music track that plays
+	call PlayMusic
+	pop de
+.no_music2
+
+	; slide out Pokémon
+	; slide in trainer pic
+	; write trainer mid battle text
+	; slide out trainer pic and slide back in Pokémon
+	ld a, [wTempEnemyMonSpecies]
+	push af
+	call BattleWinSlideInEnemyTrainerFrontpic
+	ld hl, GetFinalPkmnTextPointer ; was wLossTextPointer previously but replaced throughtout repo
+	ld a, [hli]
+	ld h, [hl]
+	ld l, a
+	call GetMapScriptsBank
+	call FarPrintText
+	call WaitBGMap
+	call WaitPressAorB_BlinkCursor
+	pop af
+	ld [wTempEnemyMonSpecies], a
+	call EmptyBattleTextbox
+	call WaitBGMap
+	hlcoord 18, 0
+	ld a, 8
+	call SlideBattlePicOut
+	ld c, 10
+	call DelayFrames
+	jp FinalPkmnSlideInEnemyMonFrontpic
+
 CheckWhetherToAskSwitch:
 	ld a, [wBattleHasJustStarted]
 	dec a
@@ -3509,6 +3587,66 @@ CheckWhetherToAskSwitch:
 
 .return_nc
 	and a
+	ret
+
+FinalPkmnSlideInEnemyMonFrontpic:
+	call FinishBattleAnim
+	farcall GetEnemyMonFrontpic
+	hlcoord 19, 0
+	ld c, 0
+
+.outer_loop
+	inc c
+	ld a, c
+	cp 9
+	ret z
+	xor a
+	ld [hBGMapMode], a
+	ld [hBGMapThird], a
+	ld d, $0
+	push bc
+	push hl
+
+.inner_loop
+	call .CopyColumn
+	inc hl
+	ld a, 7
+	add d
+	ld d, a
+	dec c
+	jr nz, .inner_loop
+
+	ld a, $1
+	ld [hBGMapMode], a
+	ld c, 4
+	call DelayFrames
+	pop hl
+	pop bc
+	dec hl
+	jr .outer_loop
+
+.CopyColumn:
+	push hl
+	push de
+	push bc
+	ld e, 7
+
+.loop
+	ld a, d
+	cp 7 * 7
+	jr c, .ok
+	ld a, " "
+.ok
+	ld [hl], a
+	ld bc, SCREEN_WIDTH
+	add hl, bc
+	inc d
+	dec e
+	jr nz, .loop
+
+	pop bc
+	pop de
+	pop hl
 	ret
 
 OfferSwitch:
