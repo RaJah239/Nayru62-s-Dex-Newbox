@@ -16,6 +16,10 @@ _ReceiveItem::
 	dw .KeyItem
 	dw .Ball
 	dw .TMHM
+	dw .Fruit
+	dw .Battle
+	dw .Medince
+	dw .Loot
 
 .Item:
 	ld h, d
@@ -29,6 +33,22 @@ _ReceiveItem::
 
 .Ball:
 	ld hl, wNumBalls
+	jp PutItemInPocket
+
+.Fruit:
+	ld hl, wNumFruits
+	jp PutItemInPocket
+
+.Battle:
+	ld hl, wNumBattles
+	jp PutItemInPocket
+
+.Medince
+	ld hl, wNumMedicines
+	jp PutItemInPocket
+
+.Loot
+	ld hl, wNumLoot
 	jp PutItemInPocket
 
 .TMHM:
@@ -57,9 +77,29 @@ _TossItem::
 	dw .KeyItem
 	dw .Ball
 	dw .TMHM
+	dw .Fruit
+	dw .Battle
+	dw .Medince
+	dw .Loot
 
 .Ball:
 	ld hl, wNumBalls
+	jp RemoveItemFromPocket
+
+.Fruit:
+	ld hl, wNumFruits
+	jp RemoveItemFromPocket
+
+.Battle:
+	ld hl, wNumBattles
+	jp RemoveItemFromPocket
+
+.Medince
+	ld hl, wNumMedicines
+	jp RemoveItemFromPocket
+
+.Loot:
+	ld hl, wNumLoot
 	jp RemoveItemFromPocket
 
 .TMHM:
@@ -100,9 +140,29 @@ _CheckItem::
 	dw .KeyItem
 	dw .Ball
 	dw .TMHM
+	dw .Fruit
+	dw .Battle
+	dw .Medicine
+	dw .Loot
 
 .Ball:
 	ld hl, wNumBalls
+	jp CheckTheItem
+
+.Fruit:
+	ld hl, wNumFruits
+	jp CheckTheItem
+	
+.Battle:
+	ld hl, wNumBattles
+	jp CheckTheItem
+
+.Medicine:
+	ld hl, wNumMedicines
+	jp CheckTheItem
+
+.Loot:
+	ld hl, wNumLoot
 	jp CheckTheItem
 
 .TMHM:
@@ -137,22 +197,58 @@ GetPocketCapacity:
 	ld c, MAX_ITEMS
 	ld a, e
 	cp LOW(wNumItems)
-	jr nz, .not_bag
+	jr nz, .not_items
 	ld a, d
 	cp HIGH(wNumItems)
 	ret z
 
-.not_bag
-	ld c, MAX_PC_ITEMS
+.not_items:
+	ld c, MAX_BATTLES
 	ld a, e
-	cp LOW(wNumPCItems)
-	jr nz, .not_pc
+	cp LOW(wNumBattles)
+	jr nz, .not_battle
 	ld a, d
-	cp HIGH(wNumPCItems)
+	cp HIGH(wNumBattles)
 	ret z
 
-.not_pc
+.not_battle:
 	ld c, MAX_BALLS
+	ld a, e
+	cp LOW(wNumBalls)
+	jr nz, .not_balls
+	ld a, d
+	cp HIGH(wNumBalls)
+	ret z
+	
+.not_balls:
+	ld c, MAX_FRUITS
+	ld a, e
+	cp LOW(wNumFruits)
+	jr nz, .not_fruits
+	ld a, d
+	cp HIGH(wNumFruits)
+	ret z
+
+.not_fruits:
+	ld c, MAX_MEDICINE
+	ld a, e
+	cp LOW(wNumMedicines)
+	jr nz, .not_medicine
+	ld a, d
+	cp HIGH(wNumMedicines)
+	ret z
+
+.not_medicine:
+	ld c, MAX_LOOT
+	ld a, e
+	cp LOW(wNumLoot)
+	jr nz, .not_loot
+	ld a, d
+	cp HIGH(wNumLoot)
+	ret z
+
+.not_loot
+	ld c, MAX_PC_ITEMS
 	ret
 
 PutItemInPocket:

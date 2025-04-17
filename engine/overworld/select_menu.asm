@@ -32,6 +32,10 @@ CheckRegisteredItem:
 	dw .CheckBall
 	dw .CheckKeyItem
 	dw .CheckTMHM
+	dw .CheckFruit
+	dw .CheckBattle
+	dw .CheckMedicine
+	dw .CheckLoot
 
 .CheckItem:
 	ld hl, wNumItems
@@ -60,6 +64,7 @@ CheckRegisteredItem:
 
 .CheckBall:
 	ld hl, wNumBalls
+.StandardCheck:
 	call .CheckRegisteredNo
 	jr nc, .NoRegisteredItem
 	inc hl
@@ -70,6 +75,22 @@ CheckRegisteredItem:
 	call .IsSameItem
 	jr c, .NoRegisteredItem
 	ret
+
+.CheckFruit:
+	ld hl, wNumFruits
+	jr .StandardCheck
+	
+.CheckBattle:
+	ld hl, wNumBattles
+	jr .StandardCheck
+
+.CheckMedicine:
+	ld hl, wNumMedicines
+	jr .StandardCheck
+
+.CheckLoot:
+	ld hl, wNumLoot
+	jr .StandardCheck
 
 .CheckTMHM:
 	jr .NoRegisteredItem
