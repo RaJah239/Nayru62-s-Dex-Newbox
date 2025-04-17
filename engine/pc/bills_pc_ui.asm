@@ -2606,9 +2606,8 @@ BillsPC_CanReleaseMon:
 ; Returns the following in a:
 ; 0: Can release
 ; 1: Can't release last healthy mon
-; 2: Can't release Egg
-; 3: Can't release mon knowing HMs
-; 4: Empty slot
+; 2: Can't release mon knowing HMs
+; 3: Empty slot
 	; Is there even anything there?
 	call GetStorageBoxMon
 	ld a, 4
@@ -2632,11 +2631,6 @@ BillsPC_CanReleaseMon:
 	jr c, .done
 	; fallthrough
 .not_last_healthy
-	; Can't release Eggs.
-	ld a, [wBufferMonAltSpecies]
-	cp EGG
-	ld a, 2
-	ret z
 
 	; Ensure that the mon doesn't know any HMs.
 	push de
@@ -2653,7 +2647,7 @@ BillsPC_CanReleaseMon:
 	call IsHMMove
 	pop bc
 	pop hl
-	ld a, 3
+	ld a, 2
 	jr c, .hm_check_done
 	dec b
 	jr nz, .loop
@@ -2683,7 +2677,7 @@ BillsPC_ReleaseAll:
 	jr c, .done
 
 	; We want to give 3 possible messages:
-	; * Nothing was released. You can't release Eggs or PKMN knowing HMs.
+	; * Nothing was released. You can't PKMN knowing HMs.
 	; * There's nothing there!
 	; * X PKMN released.
 	lb de, 0, 0 ; Successful and failed releases.
@@ -2751,9 +2745,8 @@ BillsPC_ReleaseAll:
 	prompt
 
 .NothingReleased:
-	text "You can't release"
-	line "EGGs or #MON"
-	cont "with HM moves."
+	text "#MON with HMs"
+	line "can't be released."
 	prompt
 
 .ReleasedXMon:
@@ -2764,17 +2757,14 @@ BillsPC_ReleaseAll:
 	prompt
 
 .TheRestWasnt:
-	text "The rest are EGGs"
-	line "or know HM moves."
+	text "The rest know"
+	line "HM moves."
 	prompt
 
 BillsPC_Release:
 	call BillsPC_GetCursorSlot
 	call BillsPC_CanReleaseMon
 	ld hl, BillsPC_LastPartyMon
-	dec a
-	jr z, .print
-	ld hl, .CantReleaseEgg
 	dec a
 	jr z, .print
 	ld hl, .CantReleaseHMMons
@@ -2818,11 +2808,6 @@ BillsPC_Release:
 
 .print
 	jp BillsPC_PrintText
-
-.CantReleaseEgg:
-	text "You can't release"
-	line "an EGG!"
-	prompt
 
 .CantReleaseHMMons:
 	text "You can't release"
