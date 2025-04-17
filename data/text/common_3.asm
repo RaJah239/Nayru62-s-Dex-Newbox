@@ -630,8 +630,8 @@ _MartPackFullText::
 	done
 
 _MartCantBuyText::
-	text "Sorry, I can't buy"
-	line "that from you."
+	text "TM/HM or Key Items"
+	line "can't be sold."
 	prompt
 
 _MartComeAgainText::
