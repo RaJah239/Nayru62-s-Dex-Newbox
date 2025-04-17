@@ -1624,6 +1624,7 @@ RadioChannels:
 	dbw 32, .LuckyChannel           ; 08.5
 	dbw 40, .BuenasPassword         ; 10.5
 	dbw 52, .RuinsOfAlphRadio       ; 13.5
+	dbw 58, .NationalPark           ; 15.0
 	dbw 64, .PlacesAndPeople        ; 16.5
 	dbw 72, .LetsAllSing            ; 18.5
 	dbw 78, .PokeFluteRadio         ; 20.0
@@ -1660,6 +1661,11 @@ RadioChannels:
 	cp LANDMARK_RUINS_OF_ALPH
 	jr nz, .NoSignal
 	jp LoadStation_UnownRadio
+
+.NationalPark:
+	call .InJohto
+	jr nc, .NoSignal
+	jp LoadStation_NationalPark
 
 .PlacesAndPeople:
 	call .InJohto
@@ -1792,6 +1798,17 @@ LoadStation_UnownRadio:
 	ld de, UnownStationName
 	ret
 
+LoadStation_NationalPark:
+	ld a, NATIONAL_PARK_RADIO
+	ld [wCurRadioLine], a
+	xor a
+	ld [wNumRadioLinesPrinted], a
+	ld a, BANK(PlayRadioShow)
+	ld hl, PlayRadioShow
+	call Radio_BackUpFarCallParams
+	ld de, NationalParkRadioName
+	ret
+
 LoadStation_PlacesAndPeople:
 	ld a, PLACES_AND_PEOPLE
 	ld [wCurRadioLine], a
@@ -1916,6 +1933,7 @@ PokedexShowName:      db "#DEX Show@"
 PokemonMusicName:     db "#MON Music@"
 LuckyChannelName:     db "Lucky Channel@"
 UnownStationName:     db "?????@"
+NationalParkRadioName: db "National Park@"
 
 PlacesAndPeopleName:  db "Places & People@"
 LetsAllSingName:      db "Let's All Sing!@"

@@ -15,6 +15,7 @@
 	const POKE_FLUTE_RADIO       ; 08
 	const UNOWN_RADIO            ; 09
 	const EVOLUTION_RADIO        ; 0a
+	const NATIONAL_PARK_RADIO    ; 0b
 DEF NUM_RADIO_CHANNELS EQU const_value
 ; internal indexes for channel segments
 	const OAKS_POKEMON_TALK_2    ; 0b
