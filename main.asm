@@ -742,6 +742,9 @@ SECTION "VWF", ROMX
 
 INCLUDE "engine/gfx/vwf.asm"
 
+SECTION "Battle Weather Images", ROMX
+
+INCLUDE "gfx/weather_images.asm"
 
 SECTION "Stadium 2 Checksums", ROMX[$7DE0], BANK[$7F]
 
