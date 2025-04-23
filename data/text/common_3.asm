@@ -196,8 +196,7 @@ _SavedTheGameText::
 
 _AnotherSaveFileText::
 	text "There is another"
-	line "save file. Is it"
-	cont "OK to overwrite?"
+	line "save. Overwrite?"
 	done
 
 _SaveFileCorruptedText::
@@ -1307,12 +1306,6 @@ _ItemLooksBitterText::
 _ItemCantUseOnEggText::
 	text "That can't be used"
 	line "on an EGG."
-	prompt
-
-_ItemOakWarningText::
-	text "OAK: <PLAYER>!"
-	line "This isn't the"
-	cont "time to use that!"
 	prompt
 
 _ItemBelongsToSomeoneElseText::

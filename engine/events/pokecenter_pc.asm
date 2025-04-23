@@ -16,8 +16,6 @@ PokemonCenterPC:
 	call PC_CheckPartyForPokemon
 	ret c
 	call PC_PlayBootSound
-	ld hl, PokecenterPCTurnOnText
-	call PC_DisplayText
 	ld hl, PokecenterPCWhoseText
 	call PC_DisplayTextWaitMenu
 	ld hl, .TopMenu
@@ -141,16 +139,12 @@ PC_CheckPartyForPokemon:
 
 BillsPC:
 	call PC_PlayChoosePCSound
-	ld hl, PokecenterBillsPCText
-	call PC_DisplayText
 	farcall _BillsPC
 	and a
 	ret
 
 PlayersPC:
 	call PC_PlayChoosePCSound
-	ld hl, PokecenterPlayersPCText
-	call PC_DisplayText
 	ld b, PLAYERSPC_NORMAL
 	call _PlayersPC
 	and a
@@ -158,8 +152,6 @@ PlayersPC:
 
 OaksPC:
 	call PC_PlayChoosePCSound
-	ld hl, PokecenterOaksPCText
-	call PC_DisplayText
 	farcall ProfOaksPC
 	and a
 	ret
@@ -173,8 +165,6 @@ HallOfFamePC:
 	ret
 
 TurnOffPC:
-	ld hl, PokecenterPCOaksClosedText
-	call PrintText
 	scf
 	ret
 
@@ -206,8 +196,6 @@ PC_WaitPlaySFX:
 
 _PlayersHousePC:
 	call PC_PlayBootSound
-	ld hl, PlayersPCTurnOnText
-	call PC_DisplayText
 	ld b, PLAYERSPC_HOUSE
 	call _PlayersPC
 	and a
@@ -223,10 +211,6 @@ _PlayersHousePC:
 	call ClearBGPalettes
 	ld c, TRUE
 	ret
-
-PlayersPCTurnOnText:
-	text_far _PlayersPCTurnOnText
-	text_end
 
 _PlayersPC:
 	ld a, b
@@ -674,26 +658,6 @@ PC_DisplayText:
 	call ExitMenu
 	ret
 
-PokecenterPCTurnOnText:
-	text_far _PokecenterPCTurnOnText
-	text_end
-
 PokecenterPCWhoseText:
 	text_far _PokecenterPCWhoseText
-	text_end
-
-PokecenterBillsPCText:
-	text_far _PokecenterBillsPCText
-	text_end
-
-PokecenterPlayersPCText:
-	text_far _PokecenterPlayersPCText
-	text_end
-
-PokecenterOaksPCText:
-	text_far _PokecenterOaksPCText
-	text_end
-
-PokecenterPCOaksClosedText:
-	text_far _PokecenterPCOaksClosedText
 	text_end

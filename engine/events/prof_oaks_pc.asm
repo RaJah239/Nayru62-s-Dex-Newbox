@@ -5,9 +5,6 @@ ProfOaksPC:
 	jr c, .shutdown
 	call ProfOaksPCBoot ; player chose "yes"?
 .shutdown
-	ld hl, OakPCText4
-	call PrintText
-	call JoyWaitAorB
 	call ExitMenu
 	ret
 
@@ -186,8 +183,4 @@ OakRating18:
 
 OakRating19:
 	text_far _OakRating19
-	text_end
-
-OakPCText4:
-	text_far _OakPCText4
 	text_end

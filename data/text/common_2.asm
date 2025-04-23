@@ -636,9 +636,8 @@ _ThrewAwayText::
 	prompt
 
 _OakThisIsntTheTimeText::
-	text "OAK: <PLAYER>!"
-	line "This isn't the"
-	cont "time to use that!"
+	text "Neither the time"
+	line "nor place…"
 	prompt
 
 _YouDontHaveAMonText::
@@ -1030,11 +1029,6 @@ _PokecenterPCCantUseText::
 	cont "use this!"
 	prompt
 
-_PlayersPCTurnOnText::
-	text "<PLAYER> turned on"
-	line "the PC."
-	prompt
-
 _PlayersPCAskWhatDoText::
 	text "What do you want"
 	line "to do?"
@@ -1091,37 +1085,13 @@ _PokecenterPCWhoseText::
 	text "Access whose PC?"
 	done
 
-_PokecenterBillsPCText::
-	text "BILL's PC"
-	line "accessed."
-
-	para "#MON Storage"
-	line "System opened."
-	prompt
-
-_PokecenterPlayersPCText::
-	text "Accessed own PC."
-
-	para "Item Storage"
-	line "System opened."
-	prompt
-
 _PokecenterOaksPCText::
-	text "PROF.OAK's PC"
-	line "accessed."
-
-	para "#DEX Rating"
+	text "#DEX Rating"
 	line "System opened."
 	prompt
-
-_PokecenterPCOaksClosedText::
-	text "…"
-	line "Link closed…"
-	done
 
 _OakPCText1::
-	text "Want to get your"
-	line "#DEX rated?"
+	text "Rate #DEX?"
 	done
 
 _OakPCText2::
@@ -1279,11 +1249,6 @@ _OakRating19::
 	line "Congratulations!"
 	done
 
-_OakPCText4::
-	text "The link to PROF."
-	line "OAK's PC closed."
-	done
-
 _MemoryGameYeahText::
 	text " , yeah!"
 	done
@@ -1326,9 +1291,8 @@ _ItemsTooImportantText::
 	prompt
 
 _ItemsOakWarningText::
-	text "OAK: <PLAYER>!"
-	line "This isn't the"
-	cont "time to use that!"
+	text "Neither the time"
+	line "nor place…"
 	done
 
 _PokemonSwapItemText::
