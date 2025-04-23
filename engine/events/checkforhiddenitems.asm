@@ -155,3 +155,32 @@ HeadbuttItemEncounter:
 	db 3, BLK_APRICORN
 	db 3, PNK_APRICORN
 	db -1
+
+FishingtItemEncounter:
+	ld hl, .FishingItems
+	call Random
+.loop
+	sub [hl]
+	jr c, .ok
+	inc hl
+	inc hl
+	jr .loop
+
+.ok
+	ld a, [hli]
+	inc a
+	jr z, .done
+	ld a, [hli]
+.done
+	ld [wScriptVar], a
+	ret
+	
+.FishingItems:
+	db 5, MYSTIC_WATER
+	db 5, DRAGON_FANG
+	db 5, DRAGON_SCALE
+	db 25, STARDUST
+	db 10, STAR_PIECE
+	db 25, PEARL
+	db 10, BIG_PEARL
+	db -1

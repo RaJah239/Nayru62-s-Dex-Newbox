@@ -1508,11 +1508,25 @@ FishFunction:
 
 Script_NotEvenANibble:
 	scall Script_FishCastRod
+	callasm FishingtItemEncounter
+	iffalse .no_item
+	opentext
+	verbosegiveitem ITEM_FROM_MEM
+	closetext
+	end
+.no_item
 	writetext RodNothingText
 	sjump Script_NotEvenANibble_FallThrough
 
 Script_NotEvenANibble2:
 	scall Script_FishCastRod
+	callasm FishingtItemEncounter
+	iffalse .no_item
+	opentext
+	verbosegiveitem ITEM_FROM_MEM
+	closetext
+	end
+.no_item
 	writetext RodNothingText
 
 Script_NotEvenANibble_FallThrough:
@@ -1532,7 +1546,7 @@ Script_GotABite:
 	applymovement PLAYER, .Movement_NotFacingUp
 
 .FightTheHookedPokemon:
-	pause 40
+	pause 20
 	applymovement PLAYER, .Movement_RestoreRod
 	writetext RodBiteText
 	callasm PutTheRodAway
@@ -1540,6 +1554,12 @@ Script_GotABite:
 	randomwildmon
 	startbattle
 	reloadmapafterbattle
+	callasm FishingtItemEncounter
+	iffalse .no_item
+	opentext
+	verbosegiveitem ITEM_FROM_MEM
+	closetext
+.no_item
 	end
 
 .Movement_NotFacingUp:
