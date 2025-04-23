@@ -68,34 +68,10 @@ BillsMomScript:
 BillsSisterScript:
 	faceplayer
 	opentext
-	checkcellnum PHONE_BILL
-	iftrue .GotBillsNumber
-	writetext BillsSisterUsefulNumberText
-	askforphonenumber PHONE_BILL
-	ifequal PHONE_CONTACTS_FULL, .NoRoom
-	ifequal PHONE_CONTACT_REFUSED, .Refused
-	waitsfx
-	addcellnum PHONE_BILL
-	writetext RecordedBillsNumberText
-	playsound SFX_REGISTER_PHONE_NUMBER
-	waitsfx
-	promptbutton
-.GotBillsNumber:
 	writetext BillsSisterStorageSystemText
 	waitbutton
 	closetext
 	end
-
-.Refused:
-	writetext BillsSisterRefusedNumberText
-	waitbutton
-	closetext
-	end
-
-.NoRoom:
-	writetext BillsSisterPhoneFullText
-	promptbutton
-	sjump .Refused
 
 BillsHouseBookshelf1:
 	jumpstd PictureBookshelfScript
@@ -204,37 +180,9 @@ BillsMomText_AfterEcruteak:
 	line "father."
 	done
 
-BillsSisterUsefulNumberText:
-	text "Are you a trainer?"
-
-	para "I've got a useful"
-	line "phone number for"
-	cont "you."
-	done
-
-RecordedBillsNumberText:
-	text "<PLAYER> recorded"
-	line "BILL's number."
-	done
-
-BillsSisterRefusedNumberText:
-	text "My brother made"
-	line "the PC #MON"
-	cont "storage system."
-
-	para "I was going to"
-	line "give you BILL's"
-	cont "number…"
-	done
-
-BillsSisterPhoneFullText:
-	text "You can't record"
-	line "any more numbers."
-	done
-
 BillsSisterStorageSystemText:
-	text "My big brother"
-	line "BILL made the PC"
+	text "My big brother,"
+	line "BILL, made the PC"
 
 	para "#MON storage"
 	line "system."
