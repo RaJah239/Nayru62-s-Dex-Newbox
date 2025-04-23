@@ -3022,7 +3022,7 @@ AI_Aggressive:
 ; Nothing we can do if no attacks did damage.
 	ld a, c
 	and a
-	jr z, .done
+	ret z
 
 ; Discourage moves that do less damage unless they're reckless too.
 	ld hl, wEnemyAIMoveScores - 1
@@ -3032,7 +3032,7 @@ AI_Aggressive:
 	inc b
 	ld a, b
 	cp NUM_MOVES + 1
-	jr z, .done
+	ret z
 
 ; Ignore this move if it is the highest damaging one.
 	cp c
@@ -3064,7 +3064,7 @@ AI_Aggressive:
 	cp 2
 	jr c, .checkmove2
 
-; Ignore this move if it is reckless.
+; 50% chance to ignore this move if it is reckless.
 	push hl
 	push de
 	push bc
@@ -3078,11 +3078,14 @@ AI_Aggressive:
 	jr c, .checkmove2
 
 ; If we made it this far, discourage this move.
+.discourage
 	inc [hl]
-	jr .checkmove2
+	jr c, .maybe_discourage
 
-.done
-	ret
+.maybe_discourage
+	call AI_50_50
+	jr c, .discourage
+	jr .checkmove2
 
 INCLUDE "data/battle/ai/reckless_moves.asm"
 
