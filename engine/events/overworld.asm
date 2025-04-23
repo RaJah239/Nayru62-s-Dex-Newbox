@@ -1246,10 +1246,6 @@ UseHeadbuttText:
 	text_far _UseHeadbuttText
 	text_end
 
-HeadbuttNothingText:
-	text_far _HeadbuttNothingText
-	text_end
-
 HeadbuttFromMenuScript:
 	refreshmap
 	special UpdateTimePals
@@ -1267,12 +1263,13 @@ HeadbuttScript:
 	randomwildmon
 	startbattle
 	reloadmapafterbattle
-	end
-
 .no_battle
-	writetext HeadbuttNothingText
-	waitbutton
+	callasm HeadbuttItemEncounter
+	iffalse .no_item
+	opentext
+	verbosegiveitem ITEM_FROM_MEM
 	closetext
+.no_item
 	end
 
 TryHeadbuttOW::

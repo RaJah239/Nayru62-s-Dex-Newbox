@@ -432,10 +432,6 @@ _UseHeadbuttText::
 	line "HEADBUTT!"
 	prompt
 
-_HeadbuttNothingText::
-	text "Nope. Nothing…"
-	done
-
 _AskHeadbuttText::
 	text "A #MON could be"
 	line "in this tree."

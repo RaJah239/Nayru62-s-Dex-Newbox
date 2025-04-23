@@ -113,3 +113,45 @@ RockItemEncounter:
 	db 48, PEARL
 	db 64, BRICK_PIECE
 	db -1
+
+HeadbuttItemEncounter:
+	ld hl, .HeadbuttItems
+	call Random
+.loop
+	sub [hl]
+	jr c, .ok
+	inc hl
+	inc hl
+	jr .loop
+
+.ok
+	ld a, [hli]
+	inc a
+	jr z, .done
+	ld a, [hli]
+.done
+	ld [wScriptVar], a
+	ret
+	
+.HeadbuttItems:
+	db 1, MIRACLE_SEED
+	db 1, GOLD_BERRY
+	db 1, MIRACLEBERRY
+	db 2, MYSTERYBERRY
+	db 2, GOLD_LEAF
+	db 2, SILVER_LEAF
+	db 3, BERRY
+	db 3, BITTER_BERRY
+	db 3, MINT_BERRY
+	db 3, ICE_BERRY
+	db 3, BURNT_BERRY
+	db 3, PRZCUREBERRY
+	db 3, PSNCUREBERRY
+	db 3, RED_APRICORN
+	db 3, BLU_APRICORN
+	db 3, YLW_APRICORN
+	db 3, GRN_APRICORN
+	db 3, WHT_APRICORN
+	db 3, BLK_APRICORN
+	db 3, PNK_APRICORN
+	db -1
