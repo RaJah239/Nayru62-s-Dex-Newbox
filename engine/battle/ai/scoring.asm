@@ -71,6 +71,7 @@ AI_Setup:
 
 ; 50% chance to greatly encourage stat-up moves during the first turn of enemy's Pokemon.
 ; 50% chance to greatly encourage stat-down moves during the first turn of player's Pokemon.
+; 100% chance to greatly encourage stat-up moves if the player is flying or underground, and the enemy is faster.
 ; Almost 90% chance to greatly discourage stat-modifying moves otherwise.
 
 	ld hl, wEnemyAIMoveScores - 1
@@ -113,6 +114,14 @@ AI_Setup:
 	jr .checkmove
 
 .statup
+	ld a, [wPlayerSubStatus3]
+	and 1 << SUBSTATUS_FLYING | 1 << SUBSTATUS_UNDERGROUND
+	jr z, .statup_continue
+
+	call AICompareSpeed
+	jr c, .do_encourage
+
+.statup_continue
 	ld a, [wEnemyTurnsTaken]
 	and a
 	jr nz, .discourage
@@ -128,6 +137,7 @@ AI_Setup:
 	call AI_50_50
 	jr c, .checkmove
 
+.do_encourage
 	dec [hl]
 	dec [hl]
 	jr .checkmove
