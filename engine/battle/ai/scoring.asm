@@ -939,17 +939,6 @@ AI_Smart_ResetStats:
 	inc [hl]
 	ret
 
-AI_Smart_Bide:
-; 90% chance to discourage this move unless enemy's HP is full.
-
-	call AICheckEnemyMaxHP
-	ret c
-	call Random
-	cp 10 percent
-	ret c
-	inc [hl]
-	ret
-
 AI_Smart_ForceSwitch:
 ; Whirlwind, Roar.
 
@@ -998,6 +987,7 @@ AI_Smart_LeechSeed:
 	inc [hl]
 	ret
 
+AI_Smart_Bide:
 AI_Smart_LightScreen:
 AI_Smart_Reflect:
 ; Over 90% chance to discourage this move unless enemy's HP is full.
