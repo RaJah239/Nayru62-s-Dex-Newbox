@@ -13,4 +13,10 @@ ResidualMoves:
 	db CONVERSION
 	db SUBSTITUTE
 	db SPIKES
+	db TOXIC
+	db GLARE
+	db SPIDER_WEB
+	db BELLY_DRUM
+	db MEAN_LOOK
+	db ATTRACT
 	db -1 ; end
