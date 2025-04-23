@@ -54,6 +54,11 @@ AI_Basic:
 	and a
 	jr nz, .discourage
 
+; Dismiss status moves if the player has a Substitute.
+	ld a, [wPlayerSubStatus4]
+	bit SUBSTATUS_SUBSTITUTE, a
+	jr nz, .discourage
+
 ; Dismiss Safeguard if it's already active.
 	ld a, [wPlayerScreens]
 	bit SCREENS_SAFEGUARD, a
