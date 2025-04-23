@@ -427,11 +427,11 @@ AI_Smart_Sleep:
 
 	ld b, EFFECT_NIGHTMARE
 	call AIHasMoveEffect
-	ret nc
+	jr c, .encourage
 
-.encourage
 	call AI_50_50
 	ret c
+.encourage
 	dec [hl]
 	dec [hl]
 	ret
