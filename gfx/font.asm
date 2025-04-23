@@ -15,7 +15,6 @@ INCBIN "gfx/frames/6.1bpp"
 INCBIN "gfx/frames/7.1bpp"
 INCBIN "gfx/frames/8.1bpp"
 	assert_table_length NUM_FRAMES
-INCBIN "gfx/frames/9.1bpp" ; unused
 
 StatsScreenPageTilesGFX:
 INCBIN "gfx/stats/stats_tiles.2bpp"
