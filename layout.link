@@ -317,8 +317,10 @@ ROMX $7d
 ROMX $7e
 	"Crystal Events"
 ROMX $7f
-	org $7de0
-	"Stadium 2 Checksums"
+; Commented out this and its respective SECTION "Stadium 2 Checksums", ROMX[$7DE0], BANK[$7F] in main.asm as this particular bank is needed for Voltorb Flip
+;	org $7de0
+;	"Stadium 2 Checksums"
+	"Voltorb Flip"
 WRAM0
 	"Stack"
 	"Audio RAM"

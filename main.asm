@@ -689,6 +689,10 @@ SECTION "Map GroupNums Names", ROMX
 
 INCLUDE "data/maps/map_names.asm"
 
+SECTION "Voltorb Flip", ROMX
+
+INCLUDE "engine/games/voltorb_flip.asm"
+
 
 SECTION "DEX GFX 2", ROMX
 IF USE_COMPRESSED_POKEDEX_GFX == TRUE
@@ -746,12 +750,12 @@ SECTION "Battle Weather Images", ROMX
 
 INCLUDE "gfx/weather_images.asm"
 
-SECTION "Stadium 2 Checksums", ROMX[$7DE0], BANK[$7F]
-
+;SECTION "Stadium 2 Checksums", ROMX[$7DE0], BANK[$7F]
+;
 ; The end of the ROM is taken up by checksums of the content, apparently used
 ; by Pokémon Stadium 2 due to the checksums' "N64PS3" header. (In Japan,
 ; Pokémon Stadium Gold and Silver was the third Stadium release for N64.)
 ; This SECTION reserves space for those checksums.
 ; If it is removed, also remove the "tools/stadium" command in the Makefile.
-
-	ds $220
+;
+;	ds $220
