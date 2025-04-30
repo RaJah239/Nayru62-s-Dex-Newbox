@@ -52,6 +52,86 @@ CheckShininess:
 	and a
 	ret
 
+InitPartyMenuStatusPals:
+	ld hl, StatusIconPals
+	ld c, $1 ; PSN Index
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	ld de, wBGPals1 palette 4 + 2 ; Color 2 of Palette 4 (Light Gray Pixels)
+	ld bc, 2 ; 1 Color (2 bytes)
+	call FarCopyColorWRAM
+
+	ld hl, StatusIconPals
+	ld c, $2 ; PAR Index
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	ld de, wBGPals1 palette 5 + 2 ; Color 2 of Palette 5 (Light Gray Pixels)
+	ld bc, 2 ; 1 Color (2 bytes)
+	call FarCopyColorWRAM
+
+	ld hl, StatusIconPals
+	ld c, $3 ; SLP Index
+	ld b, 0
+	add hl, bc
+	add hl, bc
+ 	ld de, wBGPals1 palette 6 + 2 ; Color 2 of Palette 6 (Light Gray Pixels)
+	ld bc, 2 ; 1 Color (2 bytes)
+	call FarCopyColorWRAM
+
+	ld hl, StatusIconPals
+	ld c, $4 ; BRN Index
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	ld de, wBGPals1 palette 4 + 4 ; Color 3 of Palette 4 (Dark Gray Pixels)
+	ld bc, 2 ; 1 Color (2 bytes)
+	call FarCopyColorWRAM
+
+	ld hl, StatusIconPals
+	ld c, $5 ; FRZ Index
+	ld b, 0
+	add hl, bc
+	add hl, bc
+	ld de, wBGPals1 palette 5 + 4 ; Color 3 of Palette 5 (Dark Gray Pixels)
+	ld bc, 2 ; 1 Color (2 bytes)
+	call FarCopyColorWRAM
+	
+	; put white (7fff) into the slot 4 of pals 4, 5, 6
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK(wBGPals1)
+	ldh [rSVBK], a
+	ld a, $FF
+	ld [wBGPals1 palette 4 + 6], a ; pal 4, slot 4, byte 1
+	ld [wBGPals1 palette 5 + 6], a ; pal 5, slot 4, byte 1
+	ld [wBGPals1 palette 6 + 6], a ; pal 6, slot 4, byte 1
+	ld [wBGPals1 palette 4 + 7], a ; pal 4, slot 4, byte 2
+	ld [wBGPals1 palette 5 + 7], a ; pal 5, slot 4, byte 2
+	ld [wBGPals1 palette 6 + 7], a ; pal 6, slot 4, byte 2
+	pop af
+	ldh [rSVBK], a
+	ret
+
+LoadCPaletteBytesFromHLIntoDE:
+	; Loads the number of Palettes passed in 'c' when called
+	; Source address is 'hl'
+	; Destination address is 'de'
+	ldh a, [rSVBK]
+	push af
+	ld a, BANK("GBC Video")
+	ldh [rSVBK], a
+.loop
+	ld a, [hli]
+	ld [de], a
+	inc de
+	dec c
+	jr nz, .loop
+	pop af
+	ldh [rSVBK], a
+	ret
+
 LoadMonBaseTypePal:
  	; destination address of Palette and Slot is passed in 'de'
  	; Type Index (already fixed/adjusted if a Special Type) is passed in 'c'
@@ -1192,6 +1272,8 @@ LoadDexTypePals:
 INCLUDE "gfx/type_pals.asm"
 
 INCLUDE "data/maps/environment_colors.asm"
+
+INCLUDE "gfx/types_cats_status_pals.asm"
 
 PartyMenuBGMobilePalette:
 INCLUDE "gfx/stats/party_menu_bg_mobile.pal"
