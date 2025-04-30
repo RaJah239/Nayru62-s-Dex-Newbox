@@ -372,6 +372,7 @@ PlaceStatusString:
 	ld a, [de]
 	or b
 	pop de
+	ld bc, $00FF ; Should always be a 0
 	jr nz, PlaceNonFaintStatus
 	push de
 	ld de, FntString
@@ -400,7 +401,7 @@ PlaceNonFaintStatus:
 	ld a, [de]
 	ld de, PsnString
 	bit PSN, a
-	jr nz, .place
+	jr nz, .placepsn
 	ld de, BrnString
 	bit BRN, a
 	jr nz, .place
@@ -423,11 +424,19 @@ PlaceNonFaintStatus:
 	pop de
 	ret
 
+.placepsn
+	ld a, [bc]
+	bit SUBSTATUS_TOXIC, a
+	jr z, .place
+	ld de, ToxString
+	jr .place
+
 SlpString: db "SLP@"
 PsnString: db "PSN@"
 BrnString: db "BRN@"
 FrzString: db "FRZ@"
 ParString: db "PAR@"
+ToxString: db "TOX@"
 
 ListMoves:
 ; List moves at hl, spaced every [wListMovesLineSpacing] tiles.
