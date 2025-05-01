@@ -854,31 +854,12 @@ _PCGottaHavePokemonText::
 	line "#MON to call!"
 	prompt
 
-_PCWhatText::
-	text "What?"
-	done
-
 _PCMonHoldingMailText::
 	text "There is a #MON"
 	line "holding MAIL."
 
 	para "Please remove the"
 	line "MAIL."
-	prompt
-
-_PCNoSingleMonText::
-	text "You don't have a"
-	line "single #MON!"
-	prompt
-
-_PCCantDepositLastMonText::
-	text "You can't deposit"
-	line "your last #MON!"
-	prompt
-
-_PCCantTakeText::
-	text "You can't take any"
-	line "more #MON."
 	prompt
 
 _ContestCaughtMonText::
