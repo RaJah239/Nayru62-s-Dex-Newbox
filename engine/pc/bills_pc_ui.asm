@@ -1543,7 +1543,7 @@ BillsPC_MenuStrings:
 	db "READ@"
 	; holding an item
 	db "MOVE@"
-	db "PACK@"
+	db "BAG@"
 	; doesn't hold an item
 	db "GIVE@"
 

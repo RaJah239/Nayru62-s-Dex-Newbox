@@ -562,6 +562,6 @@ MailboxPC:
 	db STATICMENU_CURSOR ; flags
 	db 4 ; items
 	db "READ MAIL@"
-	db "PUT IN PACK@"
+	db "PUT IN BAG@"
 	db "ATTACH MAIL@"
 	db "CANCEL@"
