@@ -34,6 +34,22 @@ DoPlayerMovement::
 	ret
 
 .TranslateIntoMovement:
+if DEF(_DEBUG)
+	ld a, [wCurInput]
+	and A_BUTTON
+	jr z, .regular_move
+	call .GetAction
+	ld a, [wWalkingTileCollision]
+	cp -1
+	ld a, STEP_BACK_LEDGE
+	jr z, .hopback
+	ld a, STEP_BIKE
+.hopback
+	call .DoStep
+	scf
+	ret
+.regular_move
+endc
 	ld a, [wPlayerState]
 	cp PLAYER_NORMAL
 	jr z, .Normal
@@ -327,7 +343,10 @@ DoPlayerMovement::
 	jr z, .ensurewalk
 	ldh a, [hJoypadDown]
 	and B_BUTTON
+if DEF(_DEBUG)
+else
 	cp B_BUTTON		; Delete this line to Default Run, Press B to walk
+endc
 	jr nz, .ensurewalk
 	ld a, [wPlayerState]
 	cp PLAYER_RUN
@@ -762,7 +781,10 @@ ENDM
 	ret nz
 	ldh a, [hJoypadDown]
 	and B_BUTTON
-	cp B_BUTTON		; Delete this line to Default Fast Surf, Press B to Slow Surf
+if DEF(_DEBUG)
+else
+	cp B_BUTTON		; Delete this line to Default Run, Press B to walk
+endc
 	ret
 
 .CheckWalkable:
