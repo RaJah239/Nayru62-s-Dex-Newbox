@@ -124,13 +124,15 @@ MartGoldenrod3F:
 	db X_ACCURACY
 	db -1 ; end
 
+MartCeladon5F1:
 MartGoldenrod4F:
-	db 5 ; # items
+	db 6 ; # items
+	db HP_UP
 	db PROTEIN
 	db IRON
-	db CARBOS
 	db CALCIUM
-	db HP_UP
+	db ZINC
+	db CARBOS
 	db -1 ; end
 
 MartGoldenrod5F1:
@@ -326,15 +328,6 @@ MartCeladon4F:
 	db POKE_DOLL
 	db LOVELY_MAIL
 	db SURF_MAIL
-	db -1 ; end
-
-MartCeladon5F1:
-	db 5 ; # items
-	db HP_UP
-	db PROTEIN
-	db IRON
-	db CARBOS
-	db CALCIUM
 	db -1 ; end
 
 MartCeladon5F2:
