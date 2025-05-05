@@ -4879,23 +4879,17 @@ PrintPlayerHUD:
 	ld a, "♀"
 
 .got_gender_char
-	hlcoord 17, 8
+	hlcoord 18, 8 ;  where the player's mon gender is printed
 	ld [hl], a
-	hlcoord 14, 8
-	push af ; back up gender
-	push hl
+	hlcoord 11, 8  ;  where the player's mon status is printed
+
 	ld bc, wPlayerSubStatus5 ; To check for Toxic
 	ld de, wBattleMonStatus
-	predef PlaceNonFaintStatus
-	pop hl
-	pop bc
-	ret nz
-	ld a, b
-	cp " "
-	jr nz, .copy_level ; male or female
-	dec hl ; genderless
+	predef PlaceNonFaintStatus ; loads player's mon status
+	ld a, c
+	and a 
 
-.copy_level
+	hlcoord 15, 8 ; where the player mon's lvl is printed
 	ld a, [wBattleMonLevel]
 	ld [wTempMonLevel], a
 	jp PrintLevel
@@ -4956,27 +4950,20 @@ DrawEnemyHUD:
 	ld a, "♀"
 
 .got_gender
-	hlcoord 9, 1
+	hlcoord 10, 1 ;  where the enemy's mons gender is printed
 	ld [hl], a
+	hlcoord 3, 1  ;  where the enemy's mons status is printed
 
-	hlcoord 6, 1
-	push af
-	push hl
 	ld bc, wEnemySubStatus5 ; To check for Toxic
 	ld de, wEnemyMonStatus
-	predef PlaceNonFaintStatus
-	pop hl
-	pop bc
-	jr nz, .skip_level
-	ld a, b
-	cp " "
-	jr nz, .print_level
-	dec hl
-.print_level
+	predef PlaceNonFaintStatus ; loads enemy's mon status
+	ld a, c
+	and a 
+
+	hlcoord 7, 1 ; where the enemy mon's lvl is printed
 	ld a, [wEnemyMonLevel]
 	ld [wTempMonLevel], a
 	call PrintLevel
-.skip_level
 
 	ld hl, wEnemyMonHP
 	ld a, [hli]
