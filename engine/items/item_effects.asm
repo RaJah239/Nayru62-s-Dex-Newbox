@@ -1167,19 +1167,25 @@ VitaminEffect:
 
 	call GetEVRelativePointer
 
-	ld a, MON_EVS
-	call GetPartyParamLocation
+    ld a, MON_EVS
+    call GetPartyParamLocation
 
-	add hl, bc
-	ld a, [hl]
-	cp 100
-	jr nc, NoEffectMessage
+    add hl, bc
+    ld a, [hl]
+    cp MAX_EV
+    jr nc, NoEffectMessage
 
-	add 10
-	ld [hl], a
-	call UpdateStatsAfterItem
+    add 10
+    jr c, .ev_overflow
+    cp MAX_EV + 1
+    jr c, .got_ev
+.ev_overflow
+    ld a, MAX_EV
+.got_ev
+    ld [hl], a
+    call UpdateStatsAfterItem
 
-	call GetEVRelativePointer
+    call GetEVRelativePointer 
 
 	ld hl, StatStrings
 	add hl, bc
