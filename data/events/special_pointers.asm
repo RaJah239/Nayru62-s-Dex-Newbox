@@ -185,3 +185,5 @@ SpecialsPointers::
 
 ; New specials starts here
 	add_special _VoltorbFlip
+	add_special BackupPartyHeldItems
+	add_special RestorePartyHeldItems

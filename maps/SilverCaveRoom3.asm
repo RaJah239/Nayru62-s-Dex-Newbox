@@ -10,6 +10,7 @@ Red:
 	special FadeOutMusic
 	faceplayer
 	opentext
+	special BackupPartyHeldItems
 	writetext RedSeenText
 	waitbutton
 	closetext
@@ -30,6 +31,7 @@ Red:
 	special FadeInFromBlack
 	pause 30
 	special HealParty
+	special RestorePartyHeldItems
 	reanchormap
 	credits
 	end
