@@ -199,12 +199,6 @@ _CGB_PokegearPals:
  	call GetPredefPal
  	call LoadHLPaletteIntoDE
 
-	hlcoord 18, 16, wAttrmap
- 	ld bc, 1 ; 1 tile
- 	ld a, 0 ; palette 0
- 	set 5, a ; flip on y axis
- 	call ByteFill
- 
  	call ApplyAttrmap
 	call ApplyPals
 	ld a, TRUE
