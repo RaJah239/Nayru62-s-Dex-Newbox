@@ -251,6 +251,28 @@ PokeAnim_DeinitFrames:
 	ret
 
 AnimateMon_CheckIfPokemon:
+	ld a, [wBattleMode]
+	and a
+	jr z, .notinbattle
+
+	ld a, BATTLE_VARS_SUBSTATUS4
+	call GetBattleVar
+	bit SUBSTATUS_SUBSTITUTE, a
+	jr nz, .fail
+
+	push hl
+	ld hl, wPlayerMinimized
+	ldh a, [hBattleTurn]
+	and a
+	jr z, .ok
+	ld hl, wEnemyMinimized
+.ok
+	ld a, [hl]
+	and a
+	pop hl
+	jr nz, .fail
+
+.notinbattle
 	ld a, [wCurPartySpecies]
 	cp EGG
 	jr z, .fail
