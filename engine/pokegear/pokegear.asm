@@ -2606,10 +2606,10 @@ Pokedex_GetArea:
 	ret
 
 .right
-; only reveal Kanto map if beaten league: disabled
- 	; ld a, [wStatusFlags]
- 	; bit STATUSFLAGS_HALL_OF_FAME_F, a
- 	; ret z
+; only reveal Kanto map if beaten league
+ 	ld a, [wStatusFlags]
+ 	bit STATUSFLAGS_HALL_OF_FAME_F, a
+ 	ret z
 	ldh a, [hWY]
 	and a
 	ret z
