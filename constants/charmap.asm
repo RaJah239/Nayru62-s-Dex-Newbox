@@ -140,6 +140,7 @@
 	charmap "┘",         $bf
 
 	charmap "<%>",       $c9 ; Percent symbol
+	charmap "<⁂>",      $ca
 	charmap "′",         $ce
 	charmap "″",         $cf
 

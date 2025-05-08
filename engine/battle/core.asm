@@ -4759,6 +4759,14 @@ PrintPlayerHUD:
 	pop hl
 	dec hl
 
+	ld bc, wBattleMonDVs
+	farcall CheckShininess
+	jr nc, .not_own_shiny
+	ld a, "<⁂>"
+	hlcoord 19, 8
+	ld [hl], a
+
+.not_own_shiny
 	ld a, TEMPMON
 	ld [wMonType], a
 	callfar GetGender
@@ -4830,6 +4838,14 @@ DrawEnemyHUD:
 	ld a, [hl]
 	ld [de], a
 
+	ld bc, wEnemyMonDVs
+	farcall CheckShininess
+	jr nc, .not_own_shiny
+	ld a, "<⁂>"
+	hlcoord 10, 1
+	ld [hl], a
+
+.not_own_shiny
 	ld a, TEMPMON
 	ld [wMonType], a
 	callfar GetGender
