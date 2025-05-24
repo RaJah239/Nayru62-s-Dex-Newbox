@@ -40,17 +40,23 @@ POKEGEAR: Now shows the detailed name of map you're currently in (based on Map G
 ![image](https://github.com/user-attachments/assets/2a9d32df-eaec-4177-b295-25de420ace24)
 
 **Quality of life features**
+- 60 fps overworld and smooth fading added
+- Dynamic overworld sprites and palettes added
+- Evening added from 5:00pm - 8:00pm and it uses 60% of day encounters and 40% of the night encounters
 - View free space on each compile (pokecrystal.gbc or pokecrystal_debug.gbc)
 - Instant Text added, removed Slow and Medium text speeds
 - Removed the artificial save delay
 - Select + B to resets the game
-- Run anywhere by holding  B + D Pad, Surf faster doing the same (Credit: cRz-Shadows) but encounter rate doubles (Bicycle doesn't affect encounter rates)
+- Press Up and Start on Suicune running screen to bring up the option to delete save file
+- Run anywhere (hold  B to walk), Surf faster by default (Hold B to slow surf)
 - Day and Time added to Start Menu
 - Added a Medicine, Fruit, Battle and Loot Pack pockets
 - Added item sorting to Pack in and out of battles
 - "Trivial Calls" replaced "Menu Account" in Options menu
 - Display coloured Pokémon pictures in over world
 - Poké-Centre fast heal added
+- Show shiny icon in battle for own Pokémon too
+- Gender correct battle/trade link rooms
 - Show quantity already in Pack at Marts, (TMs don't show quantity) by DanielOlivaw
 - Show move names for TMs and HMs when receiving or buying
 - Allow using a field move if the Pokémon can learn it (This includes HMs, so it is possible to get stuck in Cianwood city)
@@ -101,7 +107,7 @@ POKEGEAR: Now shows the detailed name of map you're currently in (based on Map G
 - Quick Claw activation text added
 - Prevent Steel‐types from being poisoned by Twineedle
 - Prevent burning fire types and freezing ice types by Tri-Attack
-- Replaced Player Loss text with Final Pokémon text and additional music track (Only applied to Burned Tower rival battle)
+- Player Loss text added (Only used in the Cherrygrove and Burn Tower battles)
 - Short beeping noise for low HP
 - Lose money proportional to badges and lead level Pokémon
 - Replaced stat experience with EVs & Can max out EVs on all stats (can be modified by tutorial in pokecrsytal's wiki to work like main series)
