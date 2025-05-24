@@ -44,6 +44,7 @@ PlayersHouseRadioScript:
 if DEF(_DEBUG)
 	opentext
 	givemoney YOUR_MONEY, MAX_MONEY
+	giveitem BICYCLE
 	giveitem COIN_CASE
 	givecoins MAX_COINS
 	; good party
