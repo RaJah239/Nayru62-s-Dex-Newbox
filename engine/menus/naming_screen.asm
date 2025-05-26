@@ -44,6 +44,8 @@ NamingScreen:
 	ret
 
 .SetUpNamingScreen:
+	ld c, 15
+	call FadeToWhite
 	call ClearBGPalettes
 	ld b, SCGB_DIPLOMA
 	call GetSGBLayout

@@ -1888,7 +1888,7 @@ FadeToMenu::
 	xor a
 	ldh [hBGMapMode], a
 	call LoadStandardMenuHeader
-	farcall FadeOutToWhite
+	farcall FadeOutPalettes
 	call ClearSprites
 	call DisableSpriteUpdates
 	ret

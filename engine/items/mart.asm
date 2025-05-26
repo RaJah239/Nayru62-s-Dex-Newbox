@@ -337,6 +337,8 @@ INCLUDE "data/items/bargain_shop.asm"
 BuyMenu:
 	call FadeToMenu
 	farcall BlankScreen
+	farcall LoadOW_BGPal7
+	call FadePalettes
 	xor a
 	ld [wMenuScrollPositionBackup], a
 	ld a, 1

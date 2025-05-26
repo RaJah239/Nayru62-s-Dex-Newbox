@@ -123,7 +123,7 @@ LancesRoomLanceScript:
 	pause 30
 	closetext
 	applymovement LANCESROOM_MARY, LancesRoomMovementData_MaryRunsBackAndForth
-	special FadeOutToWhite
+	special FadeOutPalettes
 	pause 15
 	warpfacing UP, HALL_OF_FAME, 4, 13
 	end
