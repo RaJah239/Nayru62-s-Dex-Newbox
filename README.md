@@ -54,6 +54,7 @@ POKEGEAR: Now shows the detailed name of map you're currently in (based on Map G
 - Added item sorting to Pack in and out of battles
 - "Trivial Calls" replaced "Menu Account" in Options menu
 - Display coloured Pokémon pictures in over world
+- Slide in signs added by Idain, from Polished Crystal
 - Poké-Centre fast heal added
 - Show shiny icon in battle for own Pokémon too
 - Gender correct battle/trade link rooms
@@ -121,6 +122,7 @@ Still get EVs
 - Party Menu status tiles added
 - Player and Enemy's Pokémon status doesn't cover its level
 - Display TOX instead of PSN if badly poisoned by PurnPum
+- Hidden Power set at 70 power 
 - Backups and restores held items after battle (Only used for RED so far) by AtmaBuster
 
 
